@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+
+
+  metabase-g2:
+    image: metabase/metabase:latest
+    container_name: g2-metabase
+    hostname: g2-metabase
+    volumes:
+      - /dev/urandom:/dev/random:ro
+    expose:
+      - 3000
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${G2_DB_NAME}
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${G2_DB_USER}
+      MB_DB_PASS: ${G2_DB_PASS}
+      MB_DB_HOST: ${G2_DB_HOST}
+    restart: unless-stopped
+
+  
+  metabase-g3:
+    image: metabase/metabase:latest
+    container_name: g3-metabase
+    hostname: g3-metabase
+    volumes:
+      - /dev/urandom:/dev/random:ro
+    expose:
+      - 3000
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${G3_DB_NAME}
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${G3_DB_USER}
+      MB_DB_PASS: ${G3_DB_PASS}
+      MB_DB_HOST: ${G3_DB_HOST}
+    restart: unless-stopped
+
+networks:
+  default:
+      name: pws_frontend_default
+      external: true
+
