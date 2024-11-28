@@ -1,0 +1,21 @@
+docker-compose.ymlversion: '3.8'
+services:
+  traccar:
+    image: traccar/traccar:latest
+    container_name: traccar
+    hostname: traccar
+    restart: unless-stopped
+    ports:
+      - "19080:8082"
+      - "15000-15150:5000-5150"
+      - "15000-15150:5000-5150/udp"
+
+    volumes:
+      - /storage1/pws/gts/logs:/opt/traccar/logs:rw
+      - /storage1/pws/gts/conf/:/opt/traccar/conf/:ro
+
+networks:
+  default:
+      name: pws_frontend_default
+      external: true
+
